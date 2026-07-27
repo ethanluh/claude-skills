@@ -5,6 +5,9 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SHAREABLE_SKILLS } from "./shareable-skills.mjs";
+
+const CATEGORIES = Object.fromEntries(SHAREABLE_SKILLS.map(({ id, category }) => [id, category]));
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SKILLS_DIR = join(REPO_ROOT, "content", "skills");
@@ -64,12 +67,17 @@ const skillIds = readdirSync(SKILLS_DIR)
   .sort();
 
 const manifest = skillIds.map((id) => {
+  const category = CATEGORIES[id];
+  if (!category) {
+    throw new Error(`No category for skill "${id}" — add it to scripts/shareable-skills.mjs`);
+  }
   const skillDir = join(SKILLS_DIR, id);
   const skillMd = join(skillDir, "SKILL.md");
   return {
     id,
     title: TITLES[id] ?? id,
     description: extractDescription(skillMd),
+    category,
     files: listFiles(skillDir),
   };
 });

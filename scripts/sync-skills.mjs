@@ -7,30 +7,10 @@ import { existsSync, rmSync, cpSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { homedir } from "node:os";
+import { SHAREABLE_SKILLS } from "./shareable-skills.mjs";
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DEST = join(REPO_ROOT, "content", "skills");
-
-const SHAREABLE_SKILLS = [
-  "pr",
-  "address-pr-comments",
-  "resolve-pr-conflicts",
-  "main-worktree-reconcile",
-  "worktree-cleanup",
-  "code-review",
-  "conciseness-review",
-  "debug-recovery",
-  "adversarial-fleet",
-  "counsel",
-  "delegate-and-coordinate",
-  "agentic-coding",
-  "explanation-craft",
-  "visual-explainer",
-  "system-and-frontend-architecture",
-  "ui-ux-design",
-  "product-psychology",
-  "ui-work-artifact-first",
-];
 
 const source = process.argv[2] ?? join(homedir(), "Obsidian", "BigBrain", ".claude", "skills");
 
@@ -40,17 +20,21 @@ if (!existsSync(source)) {
   process.exit(1);
 }
 
-const missing = SHAREABLE_SKILLS.filter((id) => !existsSync(join(source, id)));
+const missing = SHAREABLE_SKILLS.filter(
+  ({ id, category }) => !existsSync(join(source, category, id)),
+);
 if (missing.length) {
-  console.error(`Missing at source: ${missing.join(", ")}`);
+  console.error(
+    `Missing at source: ${missing.map(({ category, id }) => `${category}/${id}`).join(", ")}`,
+  );
   process.exit(1);
 }
 
 rmSync(DEST, { recursive: true, force: true });
 mkdirSync(DEST, { recursive: true });
 
-for (const id of SHAREABLE_SKILLS) {
-  cpSync(join(source, id), join(DEST, id), { recursive: true });
+for (const { id, category } of SHAREABLE_SKILLS) {
+  cpSync(join(source, category, id), join(DEST, id), { recursive: true });
 }
 
 console.log(`Synced ${SHAREABLE_SKILLS.length} skills from ${source} into content/skills/`);

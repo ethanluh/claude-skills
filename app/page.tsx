@@ -2,11 +2,13 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import CopyInstallCommand from "@/components/CopyInstallCommand";
 import SkillDirectory from "@/components/SkillDirectory";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface Skill {
   id: string;
   title: string;
   description: string;
+  category: string;
   files: string[];
 }
 
@@ -34,16 +36,19 @@ export default function HomePage() {
   return (
     <main className="mx-auto max-w-3xl bg-[#f6f6f3] px-6 pb-24 dark:bg-[#17181a]">
       <header className="border-b border-neutral-200 pb-8 pt-14 dark:border-neutral-800">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-700 dark:text-amber-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-700 dark:bg-amber-400" />
-          {visible.length} skills shared
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-700 dark:text-amber-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-700 dark:bg-amber-400" />
+            {visible.length} skills shared
+          </div>
+          <ThemeToggle />
         </div>
         <h1 className="mt-3 text-balance text-[34px] font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100">
           Claude Code Skills
         </h1>
         <p className="mt-3.5 max-w-[60ch] text-[15.5px] text-neutral-600 dark:text-neutral-400">
-          A public index of Ethan&apos;s shareable Claude Code skills. Clone the repo, or grab
-          one skill&apos;s folder straight from GitHub and drop it into{" "}
+          A public index of Ethan&apos;s shareable Claude Code skills. Clone the repo, or grab one
+          skill&apos;s folder straight from GitHub and drop it into{" "}
           <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-[0.9em] text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
             ~/.claude/skills/&lt;name&gt;/
           </code>
@@ -61,7 +66,10 @@ export default function HomePage() {
       <footer className="mt-12 flex flex-wrap justify-between gap-2 border-t border-neutral-200 pt-5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-600">
         <span>
           Source on{" "}
-          <a href={REPO_URL} className="text-neutral-600 underline underline-offset-2 dark:text-neutral-400">
+          <a
+            href={REPO_URL}
+            className="text-neutral-600 underline underline-offset-2 dark:text-neutral-400"
+          >
             GitHub
           </a>
         </span>

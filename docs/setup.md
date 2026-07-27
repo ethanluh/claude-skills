@@ -22,3 +22,13 @@
    npm run sync:skills
    npm run build:manifest
    ```
+
+## Automated BigBrain sync
+
+`.github/workflows/sync-skills.yml` runs the same sync weekly (and on manual
+dispatch), checking out the private `ethanluh/BigBrain` repo and opening a PR
+with any resulting changes to `content/skills/` and `content/skills.json`.
+
+It needs a repo secret **`BIGBRAIN_SYNC_TOKEN`**: a fine-grained GitHub PAT
+scoped only to the `BigBrain` repo with read-only `Contents` access. Add it
+under Settings → Secrets and variables → Actions.
