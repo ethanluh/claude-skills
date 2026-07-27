@@ -2,7 +2,7 @@
 
 ## Project
 
-Static, public index site listing Ethan's shareable Claude Code skills, deployed to GitHub Pages.
+Static, public index site listing Ethan's shareable Claude Code skills, deployed to Cloudflare Pages at skills.ethanluh.com.
 
 ## Stack
 
