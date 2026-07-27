@@ -5,7 +5,14 @@ const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: [".next/**", "node_modules/**", "coverage/**"],
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "coverage/**",
+      "out/**",
+      ".wrangler/**",
+      "next-env.d.ts",
+    ],
   },
 ];
 

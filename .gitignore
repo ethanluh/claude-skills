@@ -9,6 +9,10 @@ build/
 next-env.d.ts
 *.tsbuildinfo
 
+# Wrangler
+.wrangler/
+.dev.vars*
+
 # Testing
 coverage/
 
