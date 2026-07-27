@@ -133,7 +133,7 @@ export default function SkillDirectory({ skills }: { skills: Skill[] }) {
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setCategoryOpen(category, collapsed.has(category))}
-                    className="mb-2 flex w-full items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-neutral-400 dark:text-neutral-600"
+                    className="mb-2 flex w-full items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
                   >
                     <svg
                       className={`h-2.5 w-2.5 shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
@@ -146,12 +146,15 @@ export default function SkillDirectory({ skills }: { skills: Skill[] }) {
                       <path d="m9 6 6 6-6 6" />
                     </svg>
                     {humanizeId(category)}
-                    <span className="text-neutral-300 dark:text-neutral-700">
+                    <span className="font-normal text-neutral-400 dark:text-neutral-600">
                       {categorySkills.length}
                     </span>
                   </button>
                 </h2>
-                <div className="grid grid-cols-1 gap-3" hidden={!isOpen}>
+                <div
+                  className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+                  hidden={!isOpen}
+                >
                   {categorySkills.map((skill) => (
                     <SkillCard key={skill.id} skill={skill} />
                   ))}

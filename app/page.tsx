@@ -34,7 +34,7 @@ export default function HomePage() {
   const visible = skills.filter((s) => config.enabled.includes(s.id));
 
   return (
-    <main className="mx-auto max-w-3xl bg-[#f6f6f3] px-6 pb-24 dark:bg-[#17181a]">
+    <main className="mx-auto max-w-3xl bg-[#f6f6f3] px-6 pb-24 dark:bg-[#17181a] lg:max-w-5xl lg:px-10 xl:max-w-6xl">
       <header className="border-b border-neutral-200 pb-8 pt-14 dark:border-neutral-800">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-700 dark:text-amber-400">
