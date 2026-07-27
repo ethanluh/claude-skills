@@ -21,9 +21,14 @@ GitHub for cloning or direct download.
 - `wrangler.jsonc` — declares a Worker (`assets.directory: "out"`, no
   `main` script) that serves the static export directly, bypassing
   Cloudflare's default Next.js/OpenNext (SSR) auto-config.
+- `.github/workflows/deploy.yml` — builds and runs `wrangler deploy` on
+  every push to `main`. Uses a `deploy-production` concurrency group with
+  `cancel-in-progress: true`, so if two merges land in quick succession the
+  older run is cancelled and only the latest is deployed.
 - Cloudflare Worker project (configured in the Cloudflare dashboard, not in
-  this repo) — build command `npm run build`, deploy command
-  `npx wrangler deploy`, on every push to `main`.
+  this repo) — hosts `skills.ethanluh.com` and serves what the Action
+  deploys; its own automatic-deployments trigger is turned off so the
+  Action is the only thing pushing new versions.
 
 ## Data Flow
 
@@ -32,8 +37,8 @@ GitHub for cloning or direct download.
    `content/skills/`.
 3. `npm run build:manifest` regenerates `content/skills.json` from those
    directories.
-4. Commit and push. Cloudflare builds the static export and `wrangler
-deploy` uploads `out/` to `skills.ethanluh.com`.
+4. Commit and push. `deploy.yml` builds the static export and runs
+   `wrangler deploy` to upload `out/` to `skills.ethanluh.com`.
 5. To change what's visible without touching skill content, edit
    `skills.config.json` directly and push.
 
@@ -48,9 +53,14 @@ deploy` uploads `out/` to `skills.ethanluh.com`.
   a public site.
 - **Cloudflare over GitHub Pages.** `ethanluh.com`'s DNS already lives on
   Cloudflare, so a custom subdomain (`skills.ethanluh.com`) is a
-  same-dashboard custom-domain add, with no GitHub Actions workflow to
-  maintain. The site was briefly deployed to GitHub Pages first; that
-  workflow has been removed in favor of this.
+  same-dashboard custom-domain add. The site was briefly deployed to
+  GitHub Pages first; that workflow has been removed in favor of this.
+- **GitHub Actions over Cloudflare's own auto-deploy trigger.** Cloudflare's
+  dashboard can watch `main` and deploy on its own, but it has no
+  built-in way to cancel a superseded run when two merges land back to
+  back. `deploy.yml`'s concurrency group gives that for free, so it's the
+  single deploy trigger and Cloudflare's automatic-deployments setting is
+  left off.
 - **Static-assets Worker over Cloudflare Pages' default Next.js preset.**
   The dashboard's default "Next.js" framework preset assumes SSR and runs
   the OpenNext adapter (`npx wrangler deploy` triggers an auto-migration
