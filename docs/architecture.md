@@ -2,9 +2,10 @@
 
 ## Overview
 
-A static Next.js site, exported and deployed to GitHub Pages, that lists
-Ethan's shareable Claude Code skills and links each one back to its folder
-on GitHub for cloning or direct download.
+A static Next.js site, exported and deployed to Cloudflare Pages at
+`skills.ethanluh.com`, that lists Ethan's shareable Claude Code skills and
+links each one back to its folder on GitHub for cloning or direct
+download.
 
 ## Components
 
@@ -17,7 +18,8 @@ on GitHub for cloning or direct download.
   time and renders one card per enabled skill.
 - `scripts/sync-skills.mjs`, `scripts/build-manifest.mjs` — the two-step
   update pipeline, run manually from a BigBrain checkout.
-- `.github/workflows/deploy.yml` — static export + GitHub Pages deploy on
+- Cloudflare Pages project (configured in the Cloudflare dashboard, not in
+  this repo) — builds `npm run build` and serves the `out/` directory on
   every push to `main`.
 
 ## Data Flow
@@ -27,7 +29,8 @@ on GitHub for cloning or direct download.
    `content/skills/`.
 3. `npm run build:manifest` regenerates `content/skills.json` from those
    directories.
-4. Commit and push. CI builds the static export and deploys it.
+4. Commit and push. Cloudflare Pages builds the static export and deploys
+   it to `skills.ethanluh.com`.
 5. To change what's visible without touching skill content, edit
    `skills.config.json` directly and push.
 
@@ -40,5 +43,8 @@ on GitHub for cloning or direct download.
 - **No hosted admin page.** Visibility is a single JSON file, edited and
   pushed like any other change — versioned, no auth surface to protect on
   a public site.
-- **GitHub Pages over Vercel.** No new account/integration needed; the repo
-  already lives on GitHub.
+- **Cloudflare Pages over GitHub Pages.** `ethanluh.com`'s DNS already
+  lives on Cloudflare, so a custom subdomain (`skills.ethanluh.com`) is a
+  same-dashboard custom-domain add, with no GitHub Actions workflow to
+  maintain. The site was briefly deployed to GitHub Pages first; that
+  workflow has been removed in favor of this.

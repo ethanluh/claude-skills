@@ -6,8 +6,7 @@ live in `content/skills/`, synced in from BigBrain; the site links each one
 back to its folder on GitHub so anyone can clone the repo or grab a single
 skill's files.
 
-Live site: `https://ethanluh.github.io/claude-skills/` (once GitHub Pages is
-enabled — see below).
+Live site: `https://skills.ethanluh.com` (via Cloudflare Pages — see below).
 
 ## Updating a skill's content
 
@@ -33,11 +32,22 @@ it's overwritten by the next sync.
 Edit the list, commit, and push. There's no separate admin UI — the config
 file _is_ the admin dashboard, and it's versioned like everything else.
 
-## One-time setup for a new deploy
+## One-time deploy setup (Cloudflare Pages)
 
-After the first push to `main`, enable Pages once: repo Settings, then
-Pages, then set Source to "GitHub Actions". The `deploy.yml` workflow
-handles every push after that.
+`ethanluh.com`'s DNS is already on Cloudflare, so this is a standard Pages
+setup, done once in the Cloudflare dashboard:
+
+1. Workers & Pages, then Create, then Pages, then Connect to Git; select
+   this repo.
+2. Production branch: `main`. Build command: `npm run build`. Build output
+   directory: `out`.
+3. After the first deploy succeeds, open the project's Custom domains tab
+   and add `skills.ethanluh.com`. Since the zone is already on Cloudflare,
+   the DNS record is created automatically.
+
+Every push to `main` after that triggers a new deploy automatically —
+there's no GitHub Actions workflow involved; Cloudflare Pages builds
+directly from the repo.
 
 ## Developing
 
