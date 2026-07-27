@@ -18,7 +18,9 @@ export default function CopyInstallCommand({ command }: { command: string }) {
   return (
     <div className="mt-5 flex max-w-xl overflow-hidden rounded-lg border border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800">
       <div className="flex-1 overflow-x-auto whitespace-nowrap px-3.5 py-2.5 font-mono text-[13px] text-neutral-800 dark:text-neutral-200">
-        <span className="text-neutral-400 dark:text-neutral-500"># clone just the skills you want</span>
+        <span className="text-neutral-400 dark:text-neutral-500">
+          # clone just the skills you want
+        </span>
         <br />
         {command}
       </div>
