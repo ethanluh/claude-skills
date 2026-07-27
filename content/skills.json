@@ -1,0 +1,151 @@
+[
+  {
+    "id": "address-pr-comments",
+    "title": "Address PR Comments",
+    "description": "Fetch the unresolved review comments on a PR, fix or answer each one per explicit rules, push, and reply/resolve the threads. Use whenever Ethan says \"read pr comments on #N and address them\", \"address review comments\", \"respond to the feedback on pr N\", \"new comment left\", or \"fix what the reviewer said\". Only resolves threads that got a pushed fix; questions get replies and stay open for the reviewer.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "adversarial-fleet",
+    "title": "Adversarial Fleet",
+    "description": "Orchestrate a fleet of parallel implementer subagents (Workflow-based) to land a multi-part change on one branch/PR, closing with a mandatory lint-then-adversarial-review-then-fix chain before the PR opens. Use when the user says \"spawn a fleet\", \"run agents in parallel to implement these\", \"adversarial fleet\", or asks to implement a list of N items (e.g. a counsel's output) as one piece of work.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "agentic-coding",
+    "title": "Agentic Coding",
+    "description": "Practices for steering coding agents effectively — writing/optimizing CLAUDE.md-style rule files, structuring autonomous iteration loops, verification discipline, choosing between MCP and Skills for extending an agent, and avoiding generic \"AI slop\" output. Use when writing or reviewing agent rule files, setting up a recurring/autonomous coding loop, deciding whether a capability should be an MCP server or a Skill, reviewing AI-generated web/UI output for genericness, or when a session's context-management or delegation approach needs tightening.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "code-review",
+    "title": "Code Review",
+    "description": "Code review a pull request using a two-tier agent fleet (cheap holistic scan + narrow specialized scan) followed by an adversarial/counter- adversarial debate per issue before scoring. Use whenever Ethan says \"/code-review\", \"code review this PR\", \"review PR #N\", or the `pr` skill's non-skippable review gate calls for it. For reviewing a PR as a plain human-style read (not this fleet pipeline), that's a different, simpler \"review\" flow — this skill is specifically the fleet + debate pipeline.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "conciseness-review",
+    "title": "Conciseness Review",
+    "description": "Run a behavior-preserving conciseness and clarity review across a codebase. Use this skill whenever the user asks to \"review\", \"clean up\", \"tighten\", \"refactor for clarity\", \"reduce verbosity\", \"find duplication\", \"DRY up\", or \"cut dead code\" in a repo or module — even if they don't say the word \"conciseness\". When pointed at a repository, it discovers modules, triages each one to decide whether it needs a quick single-pass or a rigorous two-pass review, dispatches a subagent per module, and aggregates everything into one repo-level report of PROPOSED changes. It never applies or commits changes — the human approves at the end. Trigger this for any \"make this code cleaner without changing what it does\" request at module or repo scale.",
+    "files": [
+      "SKILL.md",
+      "references/apply.md",
+      "references/detect.md",
+      "references/oneshot.md",
+      "references/triage.md"
+    ]
+  },
+  {
+    "id": "counsel",
+    "title": "Counsel",
+    "description": "Run a multi-persona deliberation panel — several differently-biased agents independently judge a large option set (features, approaches, keep/change/remove/add calls), cross-examine each other's verdicts, then a chair synthesizes one categorized document with dissent preserved. Use when the user says \"spawn a counsel\", \"get multiple perspectives on this\", \"run a panel of agents to decide\", \"have agents debate this and pick\", or asks for a keep/cut/change list over something too large for one pass.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "debug-recovery",
+    "title": "Debug Recovery",
+    "description": "Recover cleanly when a fix didn't work or an error recurs, instead of stacking a second guess on top of a wrong one. Use whenever Ethan says \"that didn't work\", \"still broken\", \"same error again\", \"that fix failed\", or any variant of a previous fix not holding.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "delegate-and-coordinate",
+    "title": "Delegate & Coordinate",
+    "description": "Write a delegation brief for handing engineering work to a subagent, another model, or a task/issue tracker, and coordinate multiple subagents on a multi-step build instead of implementing serially. Use when the user says \"delegate this\", \"write a delegation brief\", \"hand this off to a subagent/another model\", \"break this down for Sonnet/Haiku\", \"coordinate agents on this\", or \"act as product lead\".",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "explanation-craft",
+    "title": "Explanation Craft",
+    "description": "Principles for explaining complex information clearly — simplification/ELI5 technique, public-speaking structure, technical-writing clarity, and information-design/cognitive-load rules for diagrams. Use when planning any explanation, presentation, proposal, or visual artifact, or when critiquing one for clarity, verbosity, or structure.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "main-worktree-reconcile",
+    "title": "Main Worktree Reconcile",
+    "description": "Clear uncommitted changes out of a repo's primary worktree by routing each file to the linked worktree/PR it belongs to, asking before any discard. Use whenever Ethan says \"clean up main worktree\", \"main worktree has uncommitted changes\", \"reconcile the main worktree\", \"move these changes to the right worktree\", or \"what's this junk in main\". Complements worktree-cleanup (which prunes merged linked worktrees and never touches the primary): this skill is the one place primary-worktree changes are handled — it moves work OUT of the primary and never commits there.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "pr",
+    "title": "PR: Commit, Push, Draft PR",
+    "description": "Commit current work, push, and open a draft PR — Ethan's \"pr\" shorthand. Use whenever Ethan says \"pr\", \"pr + merge\", \"pr and merge\", \"draft pr\", \"open a pr\", \"commit this and push\", \"commit and push to the existing PR\", \"push this up\", or any terse request to get current changes into a PR. Also use whenever Ethan says a draft PR is \"ready\" or \"ready to merge\" — that triggers the async monitor-until-merged flow. Handles both new PRs and pushing follow-up commits to a branch that already has one. Merging happens ONLY when the request contains \"merge\" — otherwise the PR stays draft, untouched.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "product-psychology",
+    "title": "Product Psychology",
+    "description": "Behavioral-psychology mechanisms for product and engagement design — variable reinforcement, goal-gradient, Zeigarnik, Fogg B=MAP, Self-Determination Theory and Reiss's 16 desires, a three-gate dark-pattern test, B2B/SaaS habit and retention mechanics, pricing psychology (anchoring, decoy pricing, Van Westendorp), and concrete product mechanics (remix culture, ambient presence, fast first wins) drawn from a fourteen-product audit plus a UCSC dissertation's pattern catalog. Use when designing or critiquing onboarding, retention, gamification, notifications, paywalls, pricing tiers, or any engagement loop, or when deciding whether an engagement mechanic crosses into manipulation.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "resolve-pr-conflicts",
+    "title": "Resolve PR Conflicts",
+    "description": "Rebase a conflicted PR branch onto its base and resolve the merge conflicts using explicit per-conflict rules, in a linked worktree, pushing with --force-with-lease. Use whenever Ethan says \"resolve conflicts in pr 97\", \"fix conflicts on #N\", \"pr N has conflicts\", \"rebase pr N\", or \"resolve conflicts in all open PRs\". Never operates in the primary worktree and escalates conflicts where both sides rewrote the same logic instead of guessing.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "system-and-frontend-architecture",
+    "title": "System & Frontend Architecture",
+    "description": "Architecture decision guidance spanning code-organization patterns (MVC/MVP/MVVM/VIPER/Clean/Hexagonal/Vertical-Slice), frontend system design (rendering strategy, caching, state management, micro-frontends), and backend/infra system design (caching layers, load balancing, three-tier/microservices). Use when choosing or reviewing an architecture pattern, deciding how to split a frontend or backend system, or evaluating whether a proposed pattern matches the project's actual scale.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "ui-ux-design",
+    "title": "UI/UX Design",
+    "description": "Layout, typography, and UX-psychology principles for critiquing or planning a visual design — grid systems, spacing/hierarchy discipline, Hick's Law and other cognitive-load heuristics, dark-pattern ethics, the skeuomorphism-to-claymorphism material lineage (including Liquid Glass/glassmorphism and spatial/visionOS design), named web design styles (minimalism, brutalism, Swiss Style, bento, etc.) and their historical lineages, and concrete layout patterns. Use when reviewing a design for genericness, choosing a grid/spacing system or named style, applying UX psychology to a flow, deciding whether a skeuomorphic/glass/clay visual treatment fits, or picking a layout pattern for a specific page type.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "ui-work-artifact-first",
+    "title": "UI Work: Artifact First",
+    "description": "Get sign-off on a visual artifact before writing implementation code for any UI work. Use whenever a task involves building, changing, or proposing a UI/layout/visual design — before touching implementation code, not after.",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "visual-explainer",
+    "title": "Visual Explainer",
+    "description": "Build an HTML explanation or planning artifact (a diagram, walkthrough, proposal, or plan laid out visually) instead of explaining in chat prose alone. Use whenever a request is explanation- or planning-shaped and would benefit from a visual layout — \"explain how X works,\" \"walk me through this plan,\" \"lay out the options,\" \"show me the architecture\" — not for validating code changes (that stays prohibited).",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "worktree-cleanup",
+    "title": "Worktree Cleanup",
+    "description": "Clean up git worktrees in the current repo — remove linked worktrees whose branch is done and delete the merged branches. Use this skill whenever Ethan asks to \"clean up worktrees\", \"remove merged/stale worktrees\", \"prune worktrees\", \"delete stale branches\", \"tidy up git worktrees\", \"get rid of old worktrees\", or anything that sounds like post-merge worktree housekeeping. It auto-removes worktrees whose branch is merged into the default branch OR whose upstream is [gone] (squash-merged) AND whose working tree is clean; it never touches the primary worktree, the current worktree, the default branch, or anything dirty/locked/detached, and it surfaces those for a manual decision.",
+    "files": [
+      "SKILL.md",
+      "scripts/cleanup-worktrees.sh"
+    ]
+  }
+]

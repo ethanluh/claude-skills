@@ -1,34 +1,43 @@
-# web-app-template
+# claude-skills
 
-This is a **template repository** for web app projects using Next.js,
-TypeScript, and Tailwind CSS. It provides a starting point with app scaffolding,
-testing setup, and documentation already wired up.
+A public, browsable index of Ethan's shareable Claude Code skills — no
+access to the private `BigBrain` vault repo required. The skills themselves
+live in `content/skills/`, synced in from BigBrain; the site links each one
+back to its folder on GitHub so anyone can clone the repo or grab a single
+skill's files.
 
-## Usage
+Live site: `https://ethanluh.github.io/claude-skills/` (once GitHub Pages is
+enabled — see below).
 
-Create a new repo from this template:
+## Updating a skill's content
 
+Skills are authored in `BigBrain/.claude/skills/`, not here. When one
+changes:
+
+```bash
+npm run sync:skills      # copies the allowlisted skills from ~/Obsidian/BigBrain/.claude/skills
+npm run build:manifest   # regenerates content/skills.json (titles, descriptions, file lists)
 ```
-gh repo create <new-repo-name> --template ethanluh/web-app-template --private
+
+Then commit and push. Don't hand-edit anything under `content/skills/` —
+it's overwritten by the next sync.
+
+## Choosing which skills are visible
+
+`skills.config.json` at the repo root is the single source of truth:
+
+```json
+{ "enabled": ["pr", "code-review", "..."] }
 ```
 
-Or use the "Use this template" button on GitHub.
+Edit the list, commit, and push. There's no separate admin UI — the config
+file _is_ the admin dashboard, and it's versioned like everything else.
 
-Then:
+## One-time setup for a new deploy
 
-1. Update `CLAUDE.md` (project description and stack details).
-2. Update `package.json` (name, description).
-3. Replace the placeholder content in `app/page.tsx`.
-4. Update `docs/decisions/0001-template.md` — replace with project-specific ADRs.
-5. `LICENSE` — add one appropriate to the new project.
-
-## What to customize
-
-- `app/` — replace with your routes, layouts, and pages.
-- `app/components/` — add your shared components.
-- `tests/` — add your test cases.
-- `docs/ux-principles.md` — reference (and extend) when designing or reviewing UI.
-- `docs/decisions/0001-template.md` — replace with project-specific ADRs.
+After the first push to `main`, enable Pages once: repo Settings, then
+Pages, then set Source to "GitHub Actions". The `deploy.yml` workflow
+handles every push after that.
 
 ## Developing
 
@@ -49,5 +58,5 @@ npm run lint
 
 ## License
 
-No license is included by default — add one (e.g. MIT, Apache-2.0) before
-treating a derived project as open source.
+No license is included — this repo is meant for direct browsing/cloning by
+the team, not third-party redistribution. Add one if that changes.
