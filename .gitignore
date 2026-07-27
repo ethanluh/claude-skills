@@ -9,6 +9,9 @@ build/
 next-env.d.ts
 *.tsbuildinfo
 
+# Generated skill download zips
+public/downloads/
+
 # Wrangler
 .wrangler/
 .dev.vars*
