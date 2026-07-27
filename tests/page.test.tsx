@@ -13,6 +13,6 @@ describe("HomePage", () => {
   it("renders a card for each enabled skill", () => {
     render(<HomePage />);
     expect(screen.getByRole("heading", { name: "Code Review" })).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "View on GitHub" }).length).toBe(18);
+    expect(screen.getAllByRole("link", { name: "View on GitHub" }).length).toBe(69);
   });
 });

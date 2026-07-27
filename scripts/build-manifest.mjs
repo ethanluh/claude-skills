@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SHAREABLE_SKILLS } from "./shareable-skills.mjs";
+import { SHAREABLE_SKILLS, humanizeId } from "./shareable-skills.mjs";
 
 const CATEGORIES = Object.fromEntries(SHAREABLE_SKILLS.map(({ id, category }) => [id, category]));
 
@@ -75,7 +75,7 @@ const manifest = skillIds.map((id) => {
   const skillMd = join(skillDir, "SKILL.md");
   return {
     id,
-    title: TITLES[id] ?? id,
+    title: TITLES[id] ?? humanizeId(id),
     description: extractDescription(skillMd),
     category,
     files: listFiles(skillDir),
