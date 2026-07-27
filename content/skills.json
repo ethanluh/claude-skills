@@ -1,5 +1,14 @@
 [
   {
+    "id": "accessibility-auditing",
+    "title": "Accessibility Auditing",
+    "description": "Run an accessibility (a11y) audit against WCAG: Easy Checks first pass, automated scan (aXe/Lighthouse/WAVE), manual screen-reader testing (VoiceOver/NVDA), WCAG-EM-style conformance write-up. Use whenever Ethan asks for an accessibility audit, \"a11y review\", \"check WCAG compliance\", \"run aXe/Lighthouse on this\", or wants a screen-reader pass on a page or component. Also covers a \"wired into CI\" configuration mode — run the automated scan as a CI gate (aXe integrates into Grunt/Gulp/Selenium/npm) rather than a one-off, while manual assistive-tech testing stays a periodic/pre-release step, not something CI can do. Use this mode whenever Ethan asks to \"wire accessibility into CI\", \"add an a11y gate\", or \"make aXe run on every PR\".",
+    "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "address-pr-comments",
     "title": "Address PR Comments",
     "description": "Fetch the unresolved review comments on a PR, fix or answer each one per explicit rules, push, and reply/resolve the threads. Use whenever Ethan says \"read pr comments on #N and address them\", \"address review comments\", \"respond to the feedback on pr N\", \"new comment left\", or \"fix what the reviewer said\". Only resolves threads that got a pushed fix; questions get replies and stay open for the reviewer.",
@@ -27,10 +36,91 @@
     ]
   },
   {
+    "id": "api-from-spec",
+    "title": "API From Spec",
+    "description": "Design a new API from a spec — write or extend an OpenAPI-style contract first (resources, verbs, versioning, errors) before any implementation code, gate unstable additions behind a preview track, then generate or hand-write SDKs/docs from the spec. Use whenever Ethan is starting a new API (class project, internship, personal tool) and asks \"how do I design this API\", \"write the spec first\", \"set up a preview/stable split\", or is about to add an endpoint to an already-spec'd API. Not for reviewing an API that's already built without a spec — that's a straight `rest-api-design` review instead.",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "auth-patterns",
+    "title": "Auth Patterns",
+    "description": "Choose or review an authentication/authorization approach for a backend — the OAuth 2.0 role model, which grant type fits a given client type, when PKCE is mandatory, and the authorization-vs-authentication (OAuth vs. OIDC) distinction. Use whenever adding third-party or delegated API access, wiring up \"login with X,\" picking an OAuth grant type, reviewing a design doc or PR that touches auth, or when a login check relies on \"the request has a valid access token\" as its only proof of identity.",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "caching-strategies",
+    "title": "Caching Strategies",
+    "description": "Caching strategies — cache-aside vs. write-through mechanics, why production systems combine both, and TTL as a first-class design parameter tied to staleness tolerance. Use when adding a cache layer in front of a database, choosing between lazy-loading and write-through, reviewing a design doc or PR that introduces caching, setting or reviewing a TTL/expiration value, or diagnosing a cache-related production issue (stale reads, low hit rate, thundering herd on miss).",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "ci-setup-workflow",
+    "title": "CI Setup Workflow",
+    "description": "Setting up CI for a new repo — define what \"self-testing build\" means for the project, write a CI workflow triggered on push/PR with fast jobs first, wire it as a required status check, and establish a stop-the-line/revert response to a broken mainline. Use whenever setting up CI for a new repo, or a repo has CI checks running but nothing actually gates merges.",
+    "category": "devops",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "cicd-pipeline-basics",
+    "title": "CI/CD Pipeline Basics",
+    "description": "CI/CD pipeline basics — the workflow/job/step/runner mental model and how to wire a lint+test job that gates PR merges. Use when setting up CI for a new repo, explaining what a \"pipeline\" or \"workflow\" is, deciding how to split jobs/steps, or making a check required before merge. Provider- agnostic core; GitHub Actions is the current worked example.",
+    "category": "devops",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "code-review",
     "title": "Code Review",
     "description": "Code review a pull request using a two-tier agent fleet (cheap holistic scan + narrow specialized scan) followed by an adversarial/counter- adversarial debate per issue before scoring. Use whenever Ethan says \"/code-review\", \"code review this PR\", \"review PR #N\", or the `pr` skill's non-skippable review gate calls for it. For reviewing a PR as a plain human-style read (not this fleet pipeline), that's a different, simpler \"review\" flow — this skill is specifically the fleet + debate pipeline.",
     "category": "git",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "code-review-feedback",
+    "title": "Code Review Feedback",
+    "description": "How to phrase and scope individual code review comments so they land well and get acted on: stick to functional defects, missing validation, convention violations, and API misuse; skip out-of-scope suggestions and empty praise. This is the \"how to phrase a comment\" companion to the `code-review-technique` skill's \"what order to check things in\" checklist — use that one to decide what to look at, this one to decide whether and how to write the comment once you've found something. Use whenever Ethan is drafting review comments on a PR, asks \"how should I word this feedback\", \"is this comment worth leaving\", or is reviewing a collaborator's/ classmate's diff and wants the feedback itself to be effective rather than just present.",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "code-review-technique",
+    "title": "Code Review Technique",
+    "description": "A lightweight, single-pass personal checklist and approval bar for reviewing someone else's diff — your own PR on another project, a classmate's code, or a quick self-check before submitting. This is NOT the vault's fleet-based `/code-review` pipeline (multi-agent adversarial debate, specific to this vault's own PR process, see the `code-review` skill) — it's the plain human technique: what order to check things in, and when to stop nitpicking and approve. Use whenever Ethan says \"review this PR\", \"how should I review this diff\", \"what should I look for in a code review\", or is about to review a collaborator's/classmate's code by hand.",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "component-from-design-mock",
+    "title": "Component From Design Mock",
+    "description": "Build Component From Design Mock — verify a human designer's Figma mock is complete (every interactive state designed, values expressed as named tokens/variables rather than raw hex/px), translate its design tokens into code using a consistent naming taxonomy, then implement against documented variants/constraints. Use whenever Ethan hands off a Figma file, Dev Mode/Code Panel link, or exported design spec and asks to build the component/page it shows. Distinct from `ui-work-artifact-first`, which governs sign-off on a Claude-authored HTML mock before Claude writes its own code — this skill instead governs implementing a mock someone else already designed and handed off via Figma.",
+    "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "concise-technical-prose",
+    "title": "Concise Technical Prose",
+    "description": "Sentence-level editing checklist for tightening prose using concrete, checkable structural moves (un-nominalize buried verbs, tighten subject-verb distance, audit stress position) rather than vague \"tighten this up\" taste calls. Use whenever Ethan asks to tighten, tighten up, cut the fat from, make more concise, or edit for clarity ANY piece of prose — code comments, PR descriptions, docs, commit messages, chat replies. Not for restructuring how a complex idea is explained (that's `explanation-craft`) or for the Slack standup's specific message format (that's `slack-standup`) — this skill only edits sentences that already exist, at the sentence level.",
+    "category": "writing",
     "files": [
       "SKILL.md"
     ]
@@ -49,10 +139,64 @@
     ]
   },
   {
+    "id": "containerization-fundamentals",
+    "title": "Containerization Fundamentals",
+    "description": "Containerization fundamentals — Dockerfile layer ordering for cache efficiency and multi-stage builds to keep production images small, with Docker as the current worked example of the underlying containerization principles. Use whenever writing or reviewing a Dockerfile, debugging slow or bloated image builds, or asking how to structure a container build for a project — including \"why is my docker build so slow\", \"make this image smaller\", \"write a Dockerfile for X\", or \"review this Dockerfile\".",
+    "category": "devops",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "context-switching-audit",
+    "title": "Context Switching Audit",
+    "description": "Context-switching cost audit — flag a day/week plan that interleaves too many unrelated task domains (coursework/research/applications) and recommend consolidating same-domain work, citing switch-cost research. Use whenever Ethan shares a day/week schedule or task list and asks whether it's realistic, how to order it, or whether it's overloaded, or when a plan visibly alternates between three or more unrelated cognitive domains within a single day.",
+    "category": "time-management",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "counsel",
     "title": "Counsel",
     "description": "Run a multi-persona deliberation panel — several differently-biased agents independently judge a large option set (features, approaches, keep/change/remove/add calls), cross-examine each other's verdicts, then a chair synthesizes one categorized document with dissent preserved. Use when the user says \"spawn a counsel\", \"get multiple perspectives on this\", \"run a panel of agents to decide\", \"have agents debate this and pick\", or asks for a keep/cut/change list over something too large for one pass.",
     "category": "orchestration",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "css-layout-techniques",
+    "title": "CSS Layout Techniques",
+    "description": "Modern CSS layout mechanisms for component-level responsiveness -- container queries as the core technique, distinct from page-level media queries and from design-principle heuristics like grid systems or spacing (that's the `ui-ux-design` skill's territory). Use whenever building or reviewing a reusable component (card, widget, form section, sidebar module) that needs to look right in more than one placement, when a layout bug traces back to \"this only works in the spot it was designed for,\" or when deciding whether a responsive rule belongs on `@media` or `@container`. Covers `container-type`/`@container` syntax and how it composes with viewport media queries; does not cover grid systems or spacing scales as design principles.",
+    "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "daily-time-blocking",
+    "title": "Daily Time Blocking",
+    "description": "Build a next-day time-block grid from current task lists, calendar, and any weekly/quarterly plan already in place, with deliberate slack and an explicit block for reactive/open-ended obligations. Use whenever Ethan asks to plan tomorrow's schedule, time-block his day, \"block out\" a day, or asks what his day should look like given his current tasks and calendar. Daily layer on top of `priority-triage`'s domain sort — that skill decides what matters, this one decides when it happens.",
+    "category": "time-management",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "database-schema-design",
+    "title": "Database Schema Design",
+    "description": "Design or review a PostgreSQL (or general relational) database schema — checks normal-form violations (1NF/2NF/3NF/BCNF) as a concrete checklist, enforces normalizing first and denormalizing only after a measured bottleneck, and points to concrete Postgres tooling (foreign keys, indexes, materialized views). Use whenever designing a new schema, reviewing a proposed table design, deciding whether to denormalize, or debugging update/insert/delete anomalies in an existing schema.",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "dataset-to-conclusion",
+    "title": "Dataset To Conclusion",
+    "description": "Raw dataset to defensible conclusion — chains EDA -> design/assumption check -> hypothesis test -> reporting (effect size + error rates, not a bare p-value), so every analytic choice traces back to something inspected before the test was run.",
+    "category": "research",
     "files": [
       "SKILL.md"
     ]
@@ -76,10 +220,109 @@
     ]
   },
   {
+    "id": "deploy-side-project-workflow",
+    "title": "Deploy Side Project Workflow",
+    "description": "Deploy a side project end-to-end -- write a multi-stage Dockerfile with proper cache ordering, externalize all config/secrets per twelve-factor, then launch/deploy via a PaaS (Fly.io as current example) with secrets set via the platform rather than committed to the repo. Use whenever Ethan is taking a project from \"runs on my machine\" to \"has a live URL,\" asks how to deploy/ship/launch a side project, or needs to wire a Dockerfile and a cloud platform together for the first time.",
+    "category": "devops",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "design-tokens",
+    "title": "Design Tokens",
+    "description": "Design Tokens & Component Design Systems — naming and scoping design tokens (Base/Modifier/Object/Namespace taxonomy, start-local-then-promote discipline) so a component library stays consistent and discoverable as it grows. Use whenever naming a new design token, reviewing a token name for consistency, deciding whether a value belongs on a component or in the global token set, or a token system feels inconsistent or hard to navigate.",
+    "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "documentation-structure",
+    "title": "Documentation Structure",
+    "description": "Organize READMEs and project docs by which of four distinct reader needs a piece of content serves — tutorial, how-to, reference, explanation — instead of letting one document try to do all four jobs badly. Use when writing or reviewing a README, project doc, or docs site; when a doc feels bloated or unfocused; when deciding where a piece of content belongs; or when someone asks \"why is this README so long/confusing.\"",
+    "category": "writing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "environment-config-management",
+    "title": "Environment Config Management",
+    "description": "Teaches strict config/code separation via environment variables (twelve-factor method), the \"could this repo go public right now without leaking a secret\" litmus test, and .env.example conventions for documenting required config without committing real values. Use whenever starting a new project, adding a new API key/credential/connection string, reviewing a repo before making it public, or when a `.env` file, secret, or config value shows up hardcoded in source.",
+    "category": "devops",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "experiment-design",
+    "title": "Experiment Design",
+    "description": "Experiment design — walk through objectives -> factors/levels -> design structure (randomization, replication, blocking, factorial vs. fractional-factorial), plus fixing sample size and stopping rule before data collection starts. Use whenever Ethan is planning an A/B test, a class-project comparison of conditions, or any experiment with a null/alternative structure, before any data gets collected. Not for analyzing data that's already been collected (that's `exploratory-data-analysis` or `hypothesis-testing`) and not for auditing a claimed result after the fact.",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "explanation-craft",
     "title": "Explanation Craft",
     "description": "Principles for explaining complex information clearly — simplification/ELI5 technique, public-speaking structure, technical-writing clarity, and information-design/cognitive-load rules for diagrams. Use when planning any explanation, presentation, proposal, or visual artifact, or when critiquing one for clarity, verbosity, or structure.",
     "category": "writing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "exploratory-data-analysis",
+    "title": "Exploratory Data Analysis",
+    "description": "Run a graphical, assumption-checking EDA pass before any confirmatory statistical test (t-test, ANOVA, regression, chi-square, etc.). Use whenever Ethan hands over a raw dataset and wants a test run, a model fit, or a conclusion drawn - before choosing the test, check distributions, outliers, missingness, and the assumptions the test requires, and keep the plots/summary stats as an artifact justifying later modeling choices (transforms, exclusions, test choice). Not for the confirmatory test itself, and not for routine data cleaning with no inferential claim attached.",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "flaky-test-triage",
+    "title": "Flaky Test Triage",
+    "description": "Triage a flaky test — rerun a suspect test repeatedly to estimate a real flake rate, quarantine it out of the blocking suite immediately with a tracked expiry, then diagnose root cause against a fixed taxonomy (isolation, async, remote services, time, resource leaks) before attempting a fix. Use whenever a test fails intermittently, passes on rerun with no code change, or someone says \"this test is flaky\", \"just rerun it\", or \"quarantine this test\".",
+    "category": "testing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "graphql-api-design",
+    "title": "GraphQL API Design",
+    "description": "Design or review a GraphQL schema against a concrete checklist — demand-oriented design (client needs drive the schema, not the database or service layer), precise/narrow fields over ambiguous nullable ones, single-purpose mutations, and disciplined, uniformly-applied pagination. Use whenever Ethan is designing a new GraphQL schema from a spec (types, queries, mutations, pagination style before writing resolver code) or reviewing an existing GraphQL schema/PR that adds or changes fields. Not for REST, gRPC, or other non-GraphQL API styles.",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "hypothesis-testing",
+    "title": "Hypothesis Testing",
+    "description": "Enforce correct statistical hypothesis-testing methodology when running or reviewing a test (t-test, chi-square, ANOVA, or any other). Use whenever Ethan asks to run a hypothesis test, check significance, interpret a p-value, review someone else's statistical claim, or design an experiment with a null/alternative hypothesis. Forces the mechanical order — state H0/Ha and fix alpha before seeing data, only then compute the test statistic against a critical region — and makes the Type I/Type II trade-off explicit instead of collapsing everything to \"p < 0.05.\"",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "latex-conventions",
+    "title": "LaTeX Conventions",
+    "description": "LaTeX conventions — enforces source hygiene (one-sentence-per-line), notation macros, booktabs/siunitx table formatting, and non-breaking reference spacing on a .tex draft. Use whenever Ethan is writing or reviewing a .tex paper draft, setting up notation for a new paper, adding or reviewing a table, or asks \"clean up this LaTeX\" / \"check my LaTeX conventions\" / \"is this table formatted right\".",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "launch-post-writing",
+    "title": "Launch Post Writing",
+    "description": "Launch post writing (Show HN / Product Hunt) — draft platform-specific launch copy: a rule-checked Show HN title and eligibility gate, and a separate Product Hunt tagline/gallery outline/maker comment. Use whenever Ethan asks to draft a Show HN post/title, write a Product Hunt tagline, gallery outline, or maker comment, or prep launch copy for a side project before posting to HN or PH.",
+    "category": "marketing",
     "files": [
       "SKILL.md"
     ]
@@ -94,10 +337,100 @@
     ]
   },
   {
+    "id": "notes-to-polished-draft",
+    "title": "Notes To Polished Draft",
+    "description": "Turn rough notes into a polished draft through reader-value framing, drafting, a structural revision pass, and a multi-pass self-edit — never mixing structural and surface-level checks in one read-through. Use whenever Ethan asks to turn notes into a draft, write up something from rough notes, or polish a draft from scratch through to final proofreading. For a portfolio/project write-up specifically, this workflow drives that structure via the `portfolio-case-study-writing` skill; for tightening prose that already exists without a full drafting pass, use `concise-technical-prose` directly instead.",
+    "category": "writing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "paper-structuring",
+    "title": "Paper Structuring",
+    "description": "Check that each section of a CS paper does its functional job — motivate, situate, explain, evidence, close — rather than just existing under the right heading. Use whenever Ethan is drafting or reviewing a paper's introduction, related work, methods, results, or conclusion section, asks \"does my intro/related-work/results section work\", \"review my paper structure\", or is assembling a draft from research results section by section. Not for sentence-level prose editing (concise-technical-prose) or related-work placement/evaluative framing specifics (a dedicated related-work skill) — this is the whole-paper skeleton check.",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "peer-review-response",
+    "title": "Peer Review Response",
+    "description": "Responding to peer review — assembles a rebuttal document: overview-then-full-quote structure, blame-reframe tone (\"misunderstanding\" not \"reviewer error\"), reorder-by-importance under length limits, and a cooling-off second draft before sending. Use whenever Ethan is drafting a response to reviewers, a conference rebuttal, or a journal revision letter, or asks \"how do I respond to this reviewer\", \"help me write a rebuttal\", or \"review my response to reviewers draft\".",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "performance-profiling",
+    "title": "Performance Profiling",
+    "description": "Resource-first triage for a performance problem — check utilization, saturation, and errors across CPU, memory, disk, network, and software resources (queues, locks, connection pools), then drill down with CPU/off-CPU profiling — instead of blind tuning or symptom-guessing. Use whenever something is \"slow\" and the next question is where to look: a systems/backend regression, a \"why is this endpoint/thread/loop slow\", or a frontend page that feels sluggish. Not for choosing an architecture (system-and-frontend-architecture) or fixing a specific known bug.",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "performance-regression-debugging",
+    "title": "Performance Regression Debugging",
+    "description": "Chain USE-method triage with scientific-method root-causing to take a performance regression from symptom to fix — first localize which resource/subsystem regressed, then pin down the exact code-level cause, plus a backend/service-specific case for checking cache behavior as the triage step. Use whenever something that used to be fast is now slow and the path from \"it's slower\" to \"here's the line/commit\" isn't obvious: a regression report, a \"this got slower after X\" complaint, or an endpoint/ job/loop whose latency crept up. Not for a first-time performance problem with no prior baseline (that's `performance-profiling` alone) or a functional bug with no latency angle (that's `root-cause-debugging` alone).",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "pomodoro-focus-sessions",
+    "title": "Pomodoro Focus Sessions",
+    "description": "Focus-session structuring (Pomodoro) — break a time-block into estimated, tracked focus intervals with after-the-fact recording to calibrate future time estimates. Use whenever Ethan wants to run a focus session, asks to \"pomodoro this\", \"break this into intervals\", or needs to structure a time-block into sustained-attention chunks rather than just scheduling it. Composes with daily-time-blocking (that skill answers what happens in which hour; this one answers how to sustain attention once a block has started) — a time-block can be subdivided into pomodoros.",
+    "category": "time-management",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "portfolio-case-study-writing",
+    "title": "Portfolio Case Study Writing",
+    "description": "Turn a finished (or even abandoned) project into a portfolio case study using a Hook/Research/Build/Iterate/Outcome skeleton, results stated up front, and an authentic voice instead of a dry deliverables list. Use whenever Ethan asks to write, draft, or review a case study, project write-up, or portfolio entry for a CS/research project or side project — including \"write up this project\", \"turn this into a case study\", or \"review my portfolio entry.\" Also applies to unfinished or abandoned projects: failed experiments are legitimate material if the reasoning and lesson are made explicit.",
+    "category": "marketing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "positioning-gtm-for-side-projects",
+    "title": "Positioning GTM For Side Projects",
+    "description": "Lightweight positioning/GTM for side projects — run a miniature five-step positioning pass (competitive alternatives including \"do nothing,\" unique attributes, translated value, target segment, market frame) before writing any tagline or launch copy. Use whenever drafting a README tagline, launch post (Show HN, Product Hunt, Reddit, X), or landing-page headline for a side project or student build, or when a pitch leads with a technical attribute (\"built in Rust,\" \"uses a novel algorithm\") instead of a value a reader recognizes. Grounded in April Dunford's positioning methodology.",
+    "category": "marketing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "pr",
     "title": "PR: Commit, Push, Draft PR",
     "description": "Commit current work, push, and open a draft PR — Ethan's \"pr\" shorthand. Use whenever Ethan says \"pr\", \"pr + merge\", \"pr and merge\", \"draft pr\", \"open a pr\", \"commit this and push\", \"commit and push to the existing PR\", \"push this up\", or any terse request to get current changes into a PR. Also use whenever Ethan says a draft PR is \"ready\" or \"ready to merge\" — that triggers the async monitor-until-merged flow. Handles both new PRs and pushing follow-up commits to a branch that already has one. Merging happens ONLY when the request contains \"merge\" — otherwise the PR stays draft, untouched.",
     "category": "git",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "pr-screenshot",
+    "title": "Pr Screenshot",
+    "description": "Capture a PR screenshot from the current repo's local dev server using the Browser pane, then upload it to that repo's screenshot-release tag and return ready-to-embed markdown. Use whenever a PR needs a UI screenshot.",
+    "category": "git",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "priority-triage",
+    "title": "Priority Triage",
+    "description": "Sort a raw task dump (classes + research + applications) into urgent/important quadrants, flagging the mere-urgency effect and capping quadrant size before scheduling. Use whenever Ethan hands over a messy list of tasks and asks what to work on, says a week feels overloaded or like nonstop firefighting, or asks to triage/prioritize classes, research, and application work together. Runs an overload diagnostic first, then the Eisenhower sort.",
+    "category": "time-management",
     "files": [
       "SKILL.md"
     ]
@@ -112,6 +445,42 @@
     ]
   },
   {
+    "id": "property-based-testing",
+    "title": "Property Based Testing",
+    "description": "Property-based testing — invariant-style tests (round-trip, idempotence, commutativity) with a generator/shrinker (Hypothesis) finding and minimizing counterexamples, instead of hand-enumerating cases. PLUS an absorbed \"fuzzing\" mode: isolate a deterministic, side-effect-free fuzz target and drive it with a coverage-guided fuzzer (libFuzzer) seeded from a small valid/invalid corpus. Use whenever Ethan asks to property-test a function, write Hypothesis tests, fuzz a parser or C/C++ function, \"find edge cases automatically\", or add libFuzzer/AFL-style testing to a project. Two modes, same mechanism: generate inputs, keep what breaks or explores new ground, shrink/minimize the failure.",
+    "category": "testing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "reader-value-framing",
+    "title": "Reader Value Framing",
+    "description": "Restructure a document's opening and shape around what a specific reader already treats as valuable or unresolved (problem/response framing) rather than around the writer's own sense of completeness. Use whenever drafting or reviewing a README intro, cover letter, proposal, paper, or any piece competing for a reader's attention, or when a draft feels \"complete\" to the writer but isn't landing. Also covers an absorbed general-audience mode - explicit audience/prior-knowledge statement, active-voice and ambiguous-pronoun passes, front-loaded key points - for turning a technical write-up into something a smart non-expert can follow.",
+    "category": "writing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "readme-writing",
+    "title": "README Writing",
+    "description": "Draft or review a project README against the what/why/how-to-start/where- to-get-help structure, front-loading the case for caring before installation steps. Use whenever Ethan asks to write, draft, review, or fix up a README for a repo or side project — including \"does this README work\", \"write a README for this\", \"review my README\", or prepping a repo before a Show HN / Product Hunt launch where the README is the de facto landing page.",
+    "category": "marketing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "related-work-section-writing",
+    "title": "Related Work Section Writing",
+    "description": "Related-work section writing — drafts/reviews a related-work section for thematic grouping, an explicit closing gap-statement, and citation-as-noun anti-patterns. Use whenever Ethan is drafting a related-work section for a paper, asks to review one, or asks \"does my related work section work\" / \"is this just a list of citations.\"",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "resolve-pr-conflicts",
     "title": "Resolve PR Conflicts",
     "description": "Rebase a conflicted PR branch onto its base and resolve the merge conflicts using explicit per-conflict rules, in a linked worktree, pushing with --force-with-lease. Use whenever Ethan says \"resolve conflicts in pr 97\", \"fix conflicts on #N\", \"pr N has conflicts\", \"rebase pr N\", or \"resolve conflicts in all open PRs\". Never operates in the primary worktree and escalates conflicts where both sides rewrote the same logic instead of guessing.",
@@ -121,10 +490,82 @@
     ]
   },
   {
+    "id": "rest-api-design",
+    "title": "REST API Design",
+    "description": "Design or review a REST API against a concrete, testable checklist — resource-noun modeling, HTTP verb semantics, mandatory versioning, structured error envelopes, pagination, and long-running-operation handling. Use whenever Ethan is designing a new API from a spec (routes, resource model, verb choices, versioning scheme, error contract before writing implementation code) or reviewing an existing API/PR that adds or changes endpoints. Also use for backend project/internship work where \"REST best practices\" is too vague — this gives pass/fail criteria instead. Not for GraphQL, gRPC, or other non-REST API styles.",
+    "category": "backend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "root-cause-debugging",
+    "title": "Root Cause Debugging",
+    "description": "The scientific-method debugging loop: reproduce, hypothesize, test minimally, refine, plus the 10-minute rule for switching from ad hoc poking to systematic investigation. This is the FIRST-PASS investigation discipline used BEFORE any fix is attempted, distinct from `debug-recovery` (which handles recovering AFTER a fix already failed or an error recurs). Use whenever a bug hunt starts, or Ethan says \"let's debug this properly\", \"stop guessing\", \"be systematic about this\", or has been poking at something for a few minutes without a hypothesis.",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "side-project-launch-workflow",
+    "title": "Side Project Launch Workflow",
+    "description": "Side-project launch workflow — chains positioning to README to launch post: (1) run the lightweight positioning pass to settle the \"why should anyone care\" line, (2) write/revise the README using that line as its opening frame, (3) draft platform-specific launch posts that point back at the README as landing page. Use whenever Ethan is prepping a side project or student build for a Show HN / Product Hunt / Reddit / X launch and wants the positioning, README, and launch post handled as one pass rather than three disconnected asks.",
+    "category": "marketing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "static-analysis-linting",
+    "title": "Static Analysis Linting",
+    "description": "Set up or review a linting/static-analysis pipeline for a repo: two-tier gate (pre-commit fast feedback, build-phase non-bypassable check), tuning rules to avoid alert fatigue, and separating surface style linting from deeper logical/security static analysis. Use whenever Ethan is setting up CI/lint config for a new or existing project, asks \"what should my linting setup look like\", \"add a pre-commit hook\", \"set up static analysis\", or is reviewing why a project's linter output is being ignored.",
+    "category": "quality",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "statistical-pitfalls",
+    "title": "Statistical Pitfalls",
+    "description": "Checklist for the three failure modes that inflate false positives beyond their nominal rate — researcher-degrees-of-freedom/p-hacking, multiple- comparison inflation, and p-value misinterpretation — plus a decision rule for which correction fits which test structure. Use whenever Ethan is designing an analysis with more than one test, metric, or look at the data, or writing up a result that includes a p-value. ALSO use to review someone else's claimed statistical result (\"is this finding legit\", \"sanity-check this p-value/A-B-test result\") — same checklist, applied in reverse: was alpha fixed in advance, was the test stopped early, were multiple tests corrected for, is effect size reported, would a null result have been reported too.",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "submittable-draft-workflow",
+    "title": "Submittable Draft Workflow",
+    "description": "Research result to submittable draft — chains paper-structuring, related-work, and LaTeX/figure skills into an end-to-end pipeline: gather citations into a thematic related-work section, slot results into the section skeleton, and enforce LaTeX/figure hygiene before submission. Use whenever Ethan has a result (an experiment, a proof, a method) and wants it turned into a submittable paper draft, or says \"turn this into a paper\", \"draft the paper\", \"get this ready to submit\", or \"assemble the draft\".",
+    "category": "research",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "system-and-frontend-architecture",
     "title": "System & Frontend Architecture",
     "description": "Architecture decision guidance spanning code-organization patterns (MVC/MVP/MVVM/VIPER/Clean/Hexagonal/Vertical-Slice), frontend system design (rendering strategy, caching, state management, micro-frontends), and backend/infra system design (caching layers, load balancing, three-tier/microservices). Use when choosing or reviewing an architecture pattern, deciding how to split a frontend or backend system, or evaluating whether a proposed pattern matches the project's actual scale.",
     "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "test-coverage-for-legacy-code",
+    "title": "Test Coverage For Legacy Code",
+    "description": "Adding test coverage to an untested module — pin current behavior with characterization tests (write a placeholder assertion, run it, observe the real output, then correct the assertion) before touching any code, then use seams and the Sprout/Wrap techniques to add new tested code without a risky full rewrite. Use whenever Ethan needs to add tests to legacy code that has none, is about to change behavior in an untested module, or asks \"how do I safely test this\" for code without a spec.",
+    "category": "testing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "tone-voice-consistency",
+    "title": "Tone Voice Consistency",
+    "description": "Tone and Voice Consistency — calibrating and holding one register across a body of technical writing (docs, PR descriptions, comments) using a concrete three-tier too-informal/right/too-formal check. Use whenever Ethan asks to check, calibrate, or make consistent the tone/voice of docs, READMEs, docstrings, commit messages, PR descriptions, or comments — including \"does this sound right\", \"is this too formal/casual\", or reviewing a body of writing for a single consistent register.",
+    "category": "writing",
     "files": [
       "SKILL.md"
     ]
@@ -148,10 +589,28 @@
     ]
   },
   {
+    "id": "unit-test-design",
+    "title": "Unit Test Design",
+    "description": "Unit test design — classify tests by measurable size (small/medium/large) and design isolated, fast, single-responsibility tests as the default, reserving broader-scope tests for what actually needs them. Use whenever Ethan is writing new tests, reviewing a test suite, deciding whether something calling itself a \"unit test\" actually qualifies, or arguing about test taxonomy (\"is this a unit or integration test\"). Also use in TDD mode — the canonical list-one-test-pass-refactor-repeat loop — for \"write this test-first\", \"practice TDD\", or \"am I doing TDD right\".",
+    "category": "testing",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
     "id": "visual-explainer",
     "title": "Visual Explainer",
     "description": "Build an HTML explanation or planning artifact (a diagram, walkthrough, proposal, or plan laid out visually) instead of explaining in chat prose alone. Use whenever a request is explanation- or planning-shaped and would benefit from a visual layout — \"explain how X works,\" \"walk me through this plan,\" \"lay out the options,\" \"show me the architecture\" — not for validating code changes (that stays prohibited).",
     "category": "frontend",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "weekly-planning-workflow",
+    "title": "Weekly Planning Workflow",
+    "description": "Run a recurring weekly planning pass across coursework, research, and application streams — Get Clear / Get Current / Get Creative across all three, checked against fixed external milestones (e.g. an application timeline), ending in the coming week's priorities. Use whenever Ethan asks for a weekly review, weekly planning, \"what should this week look like\", or wants to check progress against the grad-school application timeline alongside classes and research.",
+    "category": "time-management",
     "files": [
       "SKILL.md"
     ]

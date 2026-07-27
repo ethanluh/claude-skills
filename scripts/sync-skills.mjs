@@ -20,21 +20,21 @@ if (!existsSync(source)) {
   process.exit(1);
 }
 
-const missing = SHAREABLE_SKILLS.filter(
-  ({ id, category }) => !existsSync(join(source, category, id)),
-);
+function sourcePath({ id, category, group }) {
+  return group ? join(source, category, group, id) : join(source, category, id);
+}
+
+const missing = SHAREABLE_SKILLS.filter((skill) => !existsSync(sourcePath(skill)));
 if (missing.length) {
-  console.error(
-    `Missing at source: ${missing.map(({ category, id }) => `${category}/${id}`).join(", ")}`,
-  );
+  console.error(`Missing at source: ${missing.map((s) => sourcePath(s)).join(", ")}`);
   process.exit(1);
 }
 
 rmSync(DEST, { recursive: true, force: true });
 mkdirSync(DEST, { recursive: true });
 
-for (const { id, category } of SHAREABLE_SKILLS) {
-  cpSync(join(source, category, id), join(DEST, id), { recursive: true });
+for (const skill of SHAREABLE_SKILLS) {
+  cpSync(sourcePath(skill), join(DEST, skill.id), { recursive: true });
 }
 
 console.log(`Synced ${SHAREABLE_SKILLS.length} skills from ${source} into content/skills/`);
