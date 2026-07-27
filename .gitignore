@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# Testing
+coverage/
+
+# Env
+.env*.local
+.env
+
+# Claude Code local overrides
+.claude/settings.local.json
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
