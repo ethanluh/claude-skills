@@ -17,3 +17,8 @@
    ```
    npm run test
    ```
+5. To pull in current skill content from a local BigBrain checkout:
+   ```
+   npm run sync:skills
+   npm run build:manifest
+   ```

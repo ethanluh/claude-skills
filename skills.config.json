@@ -1,0 +1,22 @@
+{
+  "enabled": [
+    "address-pr-comments",
+    "adversarial-fleet",
+    "agentic-coding",
+    "code-review",
+    "conciseness-review",
+    "counsel",
+    "debug-recovery",
+    "delegate-and-coordinate",
+    "explanation-craft",
+    "main-worktree-reconcile",
+    "pr",
+    "product-psychology",
+    "resolve-pr-conflicts",
+    "system-and-frontend-architecture",
+    "ui-ux-design",
+    "ui-work-artifact-first",
+    "visual-explainer",
+    "worktree-cleanup"
+  ]
+}

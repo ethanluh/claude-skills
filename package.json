@@ -1,7 +1,8 @@
 {
-  "name": "web-app-template",
+  "name": "claude-skills",
   "version": "0.1.0",
   "private": true,
+  "description": "Browsable, downloadable index of Ethan's shareable Claude Code skills.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +11,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sync:skills": "node scripts/sync-skills.mjs",
+    "build:manifest": "node scripts/build-manifest.mjs"
   },
   "dependencies": {
     "next": "^15.1.0",

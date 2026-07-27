@@ -1,3 +1,5 @@
 .next/
 node_modules/
 .github/
+content/skills/
+content/skills.json
