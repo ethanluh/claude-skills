@@ -2,7 +2,7 @@
 
 ## Project
 
-Static, public index site listing Ethan's shareable Claude Code skills, deployed to Cloudflare Pages at skills.ethanluh.com.
+Static, public index site listing Ethan's shareable Claude Code skills, deployed as a Cloudflare Worker serving static assets at skills.ethanluh.com.
 
 ## Stack
 
@@ -37,6 +37,7 @@ Next.js (App Router, static export), TypeScript, Tailwind CSS, React 19, Vitest 
 - `content/skills.json` — generated manifest (title, description, file list per skill); regenerate with `npm run build:manifest`
 - `skills.config.json` — which skill ids are visible on the site
 - `scripts/` — `sync-skills.mjs` and `build-manifest.mjs`
+- `wrangler.jsonc` — Cloudflare static-assets Worker config; don't add a `main` entrypoint, this site has no server-side code
 - `tests/` — test suite (Vitest + Testing Library)
 - `docs/` — architecture notes, setup instructions, UX principles
 - `public/` — static assets

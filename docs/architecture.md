@@ -2,10 +2,10 @@
 
 ## Overview
 
-A static Next.js site, exported and deployed to Cloudflare Pages at
-`skills.ethanluh.com`, that lists Ethan's shareable Claude Code skills and
-links each one back to its folder on GitHub for cloning or direct
-download.
+A static Next.js site, exported and deployed as a Cloudflare Worker
+serving static assets at `skills.ethanluh.com`, that lists Ethan's
+shareable Claude Code skills and links each one back to its folder on
+GitHub for cloning or direct download.
 
 ## Components
 
@@ -18,9 +18,12 @@ download.
   time and renders one card per enabled skill.
 - `scripts/sync-skills.mjs`, `scripts/build-manifest.mjs` — the two-step
   update pipeline, run manually from a BigBrain checkout.
-- Cloudflare Pages project (configured in the Cloudflare dashboard, not in
-  this repo) — builds `npm run build` and serves the `out/` directory on
-  every push to `main`.
+- `wrangler.jsonc` — declares a Worker (`assets.directory: "out"`, no
+  `main` script) that serves the static export directly, bypassing
+  Cloudflare's default Next.js/OpenNext (SSR) auto-config.
+- Cloudflare Worker project (configured in the Cloudflare dashboard, not in
+  this repo) — build command `npm run build`, deploy command
+  `npx wrangler deploy`, on every push to `main`.
 
 ## Data Flow
 
@@ -29,8 +32,8 @@ download.
    `content/skills/`.
 3. `npm run build:manifest` regenerates `content/skills.json` from those
    directories.
-4. Commit and push. Cloudflare Pages builds the static export and deploys
-   it to `skills.ethanluh.com`.
+4. Commit and push. Cloudflare builds the static export and `wrangler
+deploy` uploads `out/` to `skills.ethanluh.com`.
 5. To change what's visible without touching skill content, edit
    `skills.config.json` directly and push.
 
@@ -43,8 +46,15 @@ download.
 - **No hosted admin page.** Visibility is a single JSON file, edited and
   pushed like any other change — versioned, no auth surface to protect on
   a public site.
-- **Cloudflare Pages over GitHub Pages.** `ethanluh.com`'s DNS already
-  lives on Cloudflare, so a custom subdomain (`skills.ethanluh.com`) is a
+- **Cloudflare over GitHub Pages.** `ethanluh.com`'s DNS already lives on
+  Cloudflare, so a custom subdomain (`skills.ethanluh.com`) is a
   same-dashboard custom-domain add, with no GitHub Actions workflow to
   maintain. The site was briefly deployed to GitHub Pages first; that
   workflow has been removed in favor of this.
+- **Static-assets Worker over Cloudflare Pages' default Next.js preset.**
+  The dashboard's default "Next.js" framework preset assumes SSR and runs
+  the OpenNext adapter (`npx wrangler deploy` triggers an auto-migration
+  to it), which fails against a static export — there's no server build
+  for it to bundle. Committing `wrangler.jsonc` with an explicit
+  `assets.directory` makes `wrangler deploy` skip that auto-config
+  entirely and just upload the static files.

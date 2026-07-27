@@ -6,7 +6,8 @@ live in `content/skills/`, synced in from BigBrain; the site links each one
 back to its folder on GitHub so anyone can clone the repo or grab a single
 skill's files.
 
-Live site: `https://skills.ethanluh.com` (via Cloudflare Pages — see below).
+Live site: `https://skills.ethanluh.com` (via a Cloudflare Worker serving
+static assets — see below).
 
 ## Updating a skill's content
 
@@ -32,22 +33,29 @@ it's overwritten by the next sync.
 Edit the list, commit, and push. There's no separate admin UI — the config
 file _is_ the admin dashboard, and it's versioned like everything else.
 
-## One-time deploy setup (Cloudflare Pages)
+## One-time deploy setup (Cloudflare)
 
-`ethanluh.com`'s DNS is already on Cloudflare, so this is a standard Pages
-setup, done once in the Cloudflare dashboard:
+`ethanluh.com`'s DNS is already on Cloudflare. This deploys as a Worker
+that serves static assets (`wrangler.jsonc`'s `assets.directory`), not
+through the Next.js/OpenNext SSR adapter — this app is a static export and
+has no server-side code, so there's nothing for that adapter to run.
+Cloudflare's dashboard defaults a Git-connected Next.js project to the
+OpenNext path, which fails on a static export; committing `wrangler.jsonc`
+here is what makes `wrangler deploy` skip that auto-config and just upload
+`out/` directly.
 
-1. Workers & Pages, then Create, then Pages, then Connect to Git; select
-   this repo.
-2. Production branch: `main`. Build command: `npm run build`. Build output
-   directory: `out`.
-3. After the first deploy succeeds, open the project's Custom domains tab
+Done once in the Cloudflare dashboard, under Workers & Pages, then Create,
+then Import a repository:
+
+1. Connect this repo, production branch `main`.
+2. Build command: `npm run build`.
+3. Deploy command: `npx wrangler deploy`.
+4. After the first deploy succeeds, open the project's Custom domains tab
    and add `skills.ethanluh.com`. Since the zone is already on Cloudflare,
    the DNS record is created automatically.
 
-Every push to `main` after that triggers a new deploy automatically —
-there's no GitHub Actions workflow involved; Cloudflare Pages builds
-directly from the repo.
+Every push to `main` after that triggers a new build and deploy
+automatically — there's no GitHub Actions workflow involved.
 
 ## Developing
 
