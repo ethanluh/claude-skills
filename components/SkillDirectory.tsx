@@ -20,6 +20,19 @@ function categoryLabel(category: string) {
 
 export default function SkillDirectory({ skills }: { skills: Skill[] }) {
   const [query, setQuery] = useState("");
+  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+
+  function toggleCategory(category: string) {
+    setCollapsed((prev) => {
+      const next = new Set(prev);
+      if (next.has(category)) {
+        next.delete(category);
+      } else {
+        next.add(category);
+      }
+      return next;
+    });
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -79,54 +92,79 @@ export default function SkillDirectory({ skills }: { skills: Skill[] }) {
         </p>
       ) : (
         <div className="mt-1">
-          {grouped.map(({ category, skills: categorySkills }) => (
-            <section key={category} className="mb-6 last:mb-0">
-              <h2 className="mb-2 font-mono text-[11px] uppercase tracking-wider text-neutral-400 dark:text-neutral-600">
-                {categoryLabel(category)}
-              </h2>
-              <div className="grid grid-cols-1 gap-3">
-                {categorySkills.map((skill) => {
-                  const skillUrl = `${REPO_URL}/tree/${REPO_BRANCH}/content/skills/${skill.id}`;
-                  return (
-                    <div
-                      key={skill.id}
-                      className="rounded-[10px] border border-neutral-200 bg-white p-[18px] transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700"
+          {grouped.map(({ category, skills: categorySkills }) => {
+            const isCollapsed = collapsed.has(category);
+            return (
+              <section key={category} className="mb-6 last:mb-0">
+                <h2 className="mb-2">
+                  <button
+                    type="button"
+                    onClick={() => toggleCategory(category)}
+                    aria-expanded={!isCollapsed}
+                    className="flex w-full items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                  >
+                    <svg
+                      className={`h-3 w-3 shrink-0 transition-transform ${isCollapsed ? "-rotate-90" : ""}`}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      aria-hidden="true"
                     >
-                      <div className="flex items-baseline justify-between gap-3">
-                        <h3 className="text-[15.5px] font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-                          {skill.title}
-                        </h3>
-                        <span className="whitespace-nowrap font-mono text-[11.5px] text-neutral-400 dark:text-neutral-600">
-                          {skill.id}
-                        </span>
-                      </div>
-                      <p className="mt-1.5 max-w-[68ch] text-[13.5px] leading-relaxed text-neutral-600 dark:text-neutral-400">
-                        {skill.description}
-                      </p>
-                      <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                        <a
-                          href={skillUrl}
-                          className="inline-flex items-center gap-1 rounded-md border border-neutral-300 px-2.5 py-1 text-xs font-semibold text-amber-800 hover:border-amber-700 hover:bg-amber-50 dark:border-neutral-700 dark:text-amber-400 dark:hover:border-amber-500 dark:hover:bg-amber-500/10"
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                    {categoryLabel(category)}
+                    <span className="font-normal text-neutral-400 dark:text-neutral-600">
+                      {categorySkills.length}
+                    </span>
+                  </button>
+                </h2>
+                {!isCollapsed && (
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+                    {categorySkills.map((skill) => {
+                      const skillUrl = `${REPO_URL}/tree/${REPO_BRANCH}/content/skills/${skill.id}`;
+                      return (
+                        <div
+                          key={skill.id}
+                          className="rounded-[10px] border border-neutral-200 bg-white p-[18px] transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700"
                         >
-                          View on GitHub
-                          <span aria-hidden="true">↗</span>
-                        </a>
-                        {skill.files.map((file) => (
-                          <a
-                            key={file}
-                            href={`${REPO_URL}/blob/${REPO_BRANCH}/content/skills/${skill.id}/${file}`}
-                            className="rounded-md bg-neutral-100 px-2.5 py-1 font-mono text-xs text-neutral-600 hover:text-amber-800 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-amber-400"
-                          >
-                            {file}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
+                          <div className="flex items-baseline justify-between gap-3">
+                            <h3 className="text-[15.5px] font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+                              {skill.title}
+                            </h3>
+                            <span className="whitespace-nowrap font-mono text-[11.5px] text-neutral-400 dark:text-neutral-600">
+                              {skill.id}
+                            </span>
+                          </div>
+                          <p className="mt-1.5 max-w-[68ch] text-[13.5px] leading-relaxed text-neutral-600 dark:text-neutral-400">
+                            {skill.description}
+                          </p>
+                          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                            <a
+                              href={skillUrl}
+                              className="inline-flex items-center gap-1 rounded-md border border-neutral-300 px-2.5 py-1 text-xs font-semibold text-amber-800 hover:border-amber-700 hover:bg-amber-50 dark:border-neutral-700 dark:text-amber-400 dark:hover:border-amber-500 dark:hover:bg-amber-500/10"
+                            >
+                              View on GitHub
+                              <span aria-hidden="true">↗</span>
+                            </a>
+                            {skill.files.map((file) => (
+                              <a
+                                key={file}
+                                href={`${REPO_URL}/blob/${REPO_BRANCH}/content/skills/${skill.id}/${file}`}
+                                className="rounded-md bg-neutral-100 px-2.5 py-1 font-mono text-xs text-neutral-600 hover:text-amber-800 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-amber-400"
+                              >
+                                {file}
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            );
+          })}
         </div>
       )}
     </>
